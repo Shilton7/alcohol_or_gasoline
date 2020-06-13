@@ -15,12 +15,16 @@ class _HomePageState extends State<HomePage> {
   var _loading = false;
   var _exibirResultado = false;
   var _resultText = "";
+  Color _color = Colors.deepPurple;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: ListView(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: AnimatedContainer(
+        duration: Duration(milliseconds: 1200),
+        color: _color,
+        child: ListView(
           children: <Widget>[
             Logo(),
             _exibirResultado
@@ -32,9 +36,12 @@ class _HomePageState extends State<HomePage> {
                     alcoolCtrl: _alcoolCtrl,
                     gasolinaCtrl: _gasolinaCtrl,
                     action: calculate,
-                    loading: _loading)
+                    loading: _loading,
+                  )
           ],
-        ));
+        ),
+      ),
+    );
   }
 
   Future calculate() {
@@ -52,6 +59,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _exibirResultado = false;
         _loading = true;
+        _color = Colors.deepPurpleAccent;
       });
 
       return new Future.delayed(const Duration(seconds: 1), () {
@@ -75,6 +83,7 @@ class _HomePageState extends State<HomePage> {
       _gasolinaCtrl = new MoneyMaskedTextController();
       _loading = false;
       _exibirResultado = false;
+      _color = Colors.deepPurple;
     });
   }
 }
